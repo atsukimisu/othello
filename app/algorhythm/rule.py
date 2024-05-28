@@ -1,171 +1,68 @@
 class Rule:
   def __init__(self):
-    pass
+        self.board = [['-' for _ in range(8)] for _ in range(8)]
+        self.board[3][3], self.board[3][4] = '●', '◯'
+        self.board[4][3], self.board[4][4] = '◯', '●'
+        self.current_player = '◯'
+        self.directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
 
-  def is_placeable_black(self, row_number, column_number, board_list):
-    white = "●"
-    if board_list[row_number - 1][column_number - 1] != white and board_list[row_number - 1][column_number] != white and board_list[row_number - 1][column_number + 1] != white and board_list[row_number][column_number - 1] != white and board_list[row_number][column_number + 1] != white and board_list[row_number + 1][column_number - 1] != white and board_list[row_number + 1][column_number] != white and board_list[row_number + 1][column_number + 1] != white:
-      return False
-    while 1 <= row_number <= 8 and 1 <= column_number <= 8:
-      for i in range(2, 8):
-        if board_list[row_number - i][column_number - i] == "-":
-          break
-        elif  board_list[row_number - i][column_number - i] == "●":
-          continue
-        return True
-    while 1 <= row_number <= 8 and 1 <= column_number <= 8:
-      for i in range(2, 8):
-        if board_list[row_number - i][column_number] == "-":
-          break
-        elif  board_list[row_number - i][column_number] == "●":
-          continue
-        return True
-    while 1 <= row_number <= 8 and 1 <= column_number <= 8:
-      for i in range(2, 8):
-        if board_list[row_number][column_number - i] == "-":
-          break
-        elif  board_list[row_number][column_number - i] == "●":
-          continue
-        return True
-    while 1 <= row_number <= 8 and 1 <= column_number <= 8:
-      for i in range(2, 8):
-        if board_list[row_number + i][column_number + i] == "-":
-          break
-        elif  board_list[row_number + i][column_number + i] == "●":
-          continue
-        return True
-    while 1 <= row_number <= 8 and 1 <= column_number <= 8:
-      for i in range(2, 8):
-        if board_list[row_number + i][column_number] == "-":
-          break
-        elif  board_list[row_number + i][column_number] == "●":
-          continue
-        return True
-    while 1 <= row_number <= 8 and 1 <= column_number <= 8:
-      for i in range(2, 8):
-        if board_list[row_number][column_number + i] == "-":
-          break
-        elif  board_list[row_number][column_number + i] == "●":
-          continue
-        return True
-    while 1 <= row_number <= 8 and 1 <= column_number <= 8:
-      for i in range(2, 8):
-        if board_list[row_number - i][column_number + i] == "-":
-          break
-        elif  board_list[row_number - i][column_number + i] == "●":
-          continue
-        return True
-    while 1 <= row_number <= 8 and 1 <= column_number <= 8:
-      for i in range(2, 8):
-        if board_list[row_number + i][column_number - i] == "-":
-          break
-        elif  board_list[row_number + i][column_number - i] == "●":
-          continue
-        return True
-    return False
+  def game_board(self):
+      return self.board
 
-  def is_placeable_white(self, row_number, column_number, board_list):
-      black = "⚪︎"
-      if board_list[row_number - 1][column_number - 1] != black and board_list[row_number - 1][column_number] != black and board_list[row_number - 1][column_number + 1] != black and board_list[row_number][column_number - 1] != black and board_list[row_number][column_number + 1] != black and board_list[row_number + 1][column_number - 1] != black and board_list[row_number + 1][column_number] != black and board_list[row_number + 1][column_number + 1] != black:
-        return False
-      while 1 <= row_number <= 8 and 1 <= column_number <= 8:
-        for i in range(2, 8):
-          if board_list[row_number - i][column_number - i] == "-":
-            break
-          elif  board_list[row_number - i][column_number - i] == black:
-            continue
-          return True
-      while 1 <= row_number <= 8 and 1 <= column_number <= 8:
-        for i in range(2, 8):
-          if board_list[row_number - i][column_number] == "-":
-            break
-          elif  board_list[row_number - i][column_number] == black:
-            continue
-          return True
-      while 1 <= row_number <= 8 and 1 <= column_number <= 8:
-        for i in range(2, 8):
-          if board_list[row_number][column_number - i] == "-":
-            break
-          elif  board_list[row_number][column_number - i] == black:
-            continue
-          return True
-      while 1 <= row_number <= 8 and 1 <= column_number <= 8:
-        for i in range(2, 8):
-          if board_list[row_number + i][column_number + i] == "-":
-            break
-          elif  board_list[row_number + i][column_number + i] == black:
-            continue
-          return True
-      while 1 <= row_number <= 8 and 1 <= column_number <= 8:
-        for i in range(2, 8):
-          if board_list[row_number + i][column_number] == "-":
-            break
-          elif  board_list[row_number + i][column_number] == black:
-            continue
-          return True
-      while 1 <= row_number <= 8 and 1 <= column_number <= 8:
-        for i in range(2, 8):
-          if board_list[row_number][column_number + i] == "-":
-            break
-          elif  board_list[row_number][column_number + i] == black:
-            continue
-          return True
-      while 1 <= row_number <= 8 and 1 <= column_number <= 8:
-        for i in range(2, 8):
-          if board_list[row_number - i][column_number + i] == "-":
-            break
-          elif  board_list[row_number - i][column_number + i] == black:
-            continue
-          return True
-      while 1 <= row_number <= 8 and 1 <= column_number <= 8:
-        for i in range(2, 8):
-          if board_list[row_number + i][column_number - i] == "-":
-            break
-          elif  board_list[row_number + i][column_number - i] == black:
-            continue
-          return True
+  def player(self):
+      return '黒' if self.current_player == '◯' else '白'
+
+  def make_move(self, row, col):
+      if not self.is_valid_move(row, col):
+          return False
+      self.board[row][col] = self.current_player
+      for d in self.directions:
+          if self.check_direction(row, col, d[0], d[1]):
+              self.flip_pieces(row, col, d[0], d[1])
+      self.current_player = self.opponent()
+      return True
+
+  def is_valid_move(self, row, col):
+      if self.board[row][col] != '-':
+          return False
+      for d in self.directions:
+          if self.check_direction(row, col, d[0], d[1]):
+              return True
       return False
 
-  def flip_stones_white(self, row_number, column_number, board_list):
-      directions = [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (-1, 1), (1, -1), (1, 1)]
-      opponent = "⚪︎"
-      player = "●"
-      for dx, dy in directions:
-          ny, nx = column_number + dx, row_number + dy
-          stones_to_flip = []     
-          while 0 <= nx < 8 and 0 <= ny < 8:
-              if board_list[nx][ny] == opponent:
-                  stones_to_flip.append((nx, ny))
-              elif board_list[nx][ny] == player:
-                  for fx, fy in stones_to_flip:
-                      board_list[fx][fy] = player
-                  break
-              else:
-                  break
-              nx, ny = nx + dx, ny + dy
-      return board_list
+  def check_direction(self, row, col, dx, dy):
+      row_index, column_index = row + dx, col + dy
+      if not (0 <= row_index < 8 and 0 <= column_index < 8) or self.board[row_index][column_index] != self.opponent():
+          return False
+      while 0 <= row_index < 8 and 0 <= column_index < 8:
+          if self.board[row_index][column_index] == '-':
+              return False
+          if self.board[row_index][column_index] == self.current_player:
+              return True
+          row_index += dx
+          column_index += dy
+      return False
 
-  def flip_stones_black(self, row_number, column_number, board_list):
-    directions = [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (-1, 1), (1, -1), (1, 1)]
-    opponent = "●"
-    player = "⚪︎"
-    for dx, dy in directions:
-        ny, nx = column_number + dx, row_number + dy
-        stones_to_flip = []
-        while 0 <= nx < 8 and 0 <= ny < 8:
-            if board_list[nx][ny] == opponent:
-                stones_to_flip.append((nx, ny))
-            elif board_list[nx][ny] == player:
-                for fx, fy in stones_to_flip:
-                    board_list[fx][fy] = player
-                break
-            else:
-                break
-            nx, ny = nx + dx, ny + dy
-    return board_list
+  def flip_pieces(self, row, col, dx, dy):
+      row_index, column_index = row + dx, col + dy
+      while self.board[row_index][column_index] == self.opponent():
+          self.board[row_index][column_index] = self.current_player
+          row_index += dx
+          column_index += dy
 
-  def is_end(self, board_list):
-    for list_component in board_list:
-      if '-' in list_component:
+  def opponent(self):
+      return '◯' if self.current_player == '●' else '●'
+
+  def count_pieces(self):
+      black, white = 0, 0
+      for row in self.board:
+          black += row.count('◯')
+          white += row.count('●')
+      return black, white
+
+  def has_valid_moves(self):
+        for i in range(8):
+            for j in range(8):
+                if self.is_valid_move(i, j):
+                    return True
         return False
-    return True
